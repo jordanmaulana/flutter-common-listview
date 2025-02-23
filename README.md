@@ -11,29 +11,41 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A listview in flutter has some common basic required UX as described in Features. The problem is, most designers (according to my experiences) is only showing the design with defined data to the design. Ignoring the states or basic UX that should be available in every listview. And programmers might miss some of those required minimum common UX listview. E.g: Missing next page loading.
+This package is for those who are getting trouble to get it done because this package summarize and simplify the DX to make those minimum UX available.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+1. Show loading
+2. Drag to refresh
+3. Next page on scroll to bottom
+4. Show error
+5. Show empty placeholder
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```
+import 'package:common_listview/common_listview.dart';
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+CommonPaginatedList(
+    loading: loading,
+    page: page,
+    length: data.length,
+    itemBuilder: (c, i) {
+    Issue data = this.data[i];
+    return ListTile(
+        leading: Text('$i'),
+        title: Text('${data.title}'),
+    );
+    },
+    onNext: onNext,
+    onRefresh: () async {
+    resetData();
+    },
+    errorMsg: null,
+)
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
