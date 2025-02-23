@@ -36,15 +36,15 @@ CommonPaginatedList(
     page: page,
     length: data.length,
     itemBuilder: (c, i) {
-    Issue data = this.data[i];
-    return ListTile(
-        leading: Text('$i'),
-        title: Text('${data.title}'),
-    );
+        Issue data = this.data[i];
+        return ListTile(
+            leading: Text('$i'),
+            title: Text('${data.title}'),
+        );
     },
     onNext: onNext,
     onRefresh: () async {
-    resetData();
+        resetData();
     },
     errorMsg: null,
 )
