@@ -1,28 +1,48 @@
 import 'package:common_listview/src/widgets/placeholders.dart';
 import 'package:flutter/material.dart';
-
 import 'widgets/loading_indicator.dart';
 
-class VPaginatedList extends StatelessWidget {
+/// [loading] when true, shows a circular loading indicator.
+/// [page] current page.
+/// [onNext] function is called when the user scrolls to the bottom of the list.
+/// [length] number of items in the list.
+/// [onRefresh] function is called when the user pulls to refresh the list.
+/// [itemBuilder] function that builds the list item.
+///
+/// [errorMsg] error message to show when the list fails to load.
+/// Commonly used when the list is empty.
+///
+/// [height] height of the divider
+/// [padding] padding of the list
+///
+/// [separator] divider Widget between list items. Default is a [Divider].
+/// If you want to change the default [Divider] to be your own, use this parameter.
+/// [loadingPlaceholder] widget to show when the list is loading.
+/// [scrollController] controller for the list view.
+/// [physics] physics for the list view.
+///
+/// [placeholderTextStyle] style for the error message and no data message.
+/// [emptyPlaceHolder] widget to show when the list is empty.
+
+class CommonPaginatedList extends StatelessWidget {
   final bool loading;
   final int page;
-  final String? errorMsg;
+  final Function onNext;
+  final Axis scrollDirection;
   final int length;
-  final Widget? emptyPlaceHolder;
   final Future<void> Function() onRefresh;
   final Widget Function(BuildContext c, int i) itemBuilder;
+  final String? errorMsg;
   final double? height;
   final EdgeInsets? padding;
-  final Function onNext;
-  final Color? dividerColor;
-  final Axis scrollDirection;
   final Widget? separator;
   final Widget? loadingPlaceholder;
   final ScrollController? scrollController;
   final ScrollPhysics? physics;
   final TextStyle? placeholderTextStyle;
+  final Widget? emptyPlaceHolder;
 
-  const VPaginatedList({
+  const CommonPaginatedList({
     super.key,
     required this.loading,
     required this.page,
@@ -34,7 +54,6 @@ class VPaginatedList extends StatelessWidget {
     this.padding,
     required this.errorMsg,
     this.emptyPlaceHolder,
-    this.dividerColor,
     this.scrollDirection = Axis.vertical,
     this.separator,
     this.loadingPlaceholder,
@@ -77,12 +96,7 @@ class VPaginatedList extends StatelessWidget {
               scrollDirection: scrollDirection,
               padding: padding ?? const EdgeInsets.all(16.0),
               itemCount: length,
-              separatorBuilder: (c, i) =>
-                  separator ??
-                  Divider(
-                    height: height,
-                    color: dividerColor,
-                  ),
+              separatorBuilder: (c, i) => separator ?? Divider(height: height),
               itemBuilder: itemBuilder,
             ),
           ),

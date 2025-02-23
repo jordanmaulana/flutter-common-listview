@@ -1,7 +1,7 @@
 name: common_listview
-description: "A new Flutter package project."
+description: "Listview widget with minimum common UX"
 version: 0.0.1
-homepage:
+homepage: https://github.com/jordanmaulana/flutter-common-listview
 
 environment:
   sdk: ^3.6.2
